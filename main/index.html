@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Вход, таблица и команды</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+        .form-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center; /* Выравнивание по центру по горизонтали */
+            gap: 10px; /* Расстояние между элементами */
+        }
+        .form-group {
+            display: flex;
+            align-items: center; /* Выравнивание полей по вертикали */
+            gap: 10px; /* Расстояние между меткой и полем ввода */
+        }
+        .form-group label {
+            font-weight: bold;
+        }
+        .form-group input {
+            padding: 8px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+        .hidden {
+            display: none;
+        }
+        .commands-list {
+            margin-top: 20px;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            background-color: #f9f9f9;
+        }
+        .commands-list h3 {
+            margin-bottom: 10px;
+        }
+        .commands-list ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        .commands-list li {
+            margin-bottom: 5px;
+        }
+    </style>
+</head>
+<body>
+    <h1 id="title">Вход</h1>
+    <form class="form-container" onsubmit="checkCredentials(event)">
+        <div class="form-group">
+            <label for="login">Логин:</label>
+            <input type="text" id="login" name="login" required>
+        </div>
+        <div class="form-group">
+            <label for="password">Пароль:</label>
+            <input type="password" id="password" name="password" required>
+        </div>
+        <button type="submit">Войти</button>
+    </form>
+
+    <p id="result"></p>
+
+    <!-- Таблица, которая будет отображаться после авторизации -->
+    <div id="table-container" class="hidden">
+        <h2>Доступные образы</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Название</th>
+                    <th>Размер</th>
+                    <th>Ссылка</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Ubuntu 22.04</td>
+                    <td>2.5 GB</td>
+                    <td><a href="https://ubuntu.com/download/desktop" target="_blank">Скачать</a></td>
+                </tr>
+                <tr>
+                    <td>Windows 10</td>
+                    <td>4.7 GB</td>
+                    <td><a href="https://softcomputers.org/download/distr-windows/download-windows-10/" target="_blank">Скачать</a></td>
+                </tr>
+                <tr>
+                    <td>Linux Mint</td>
+                    <td>3.2 GB</td>
+                    <td><a href="https://linuxmint.com/edition.php?id=317" target="_blank">Скачать</a></td>
+                </tr>
+            </tbody>
+        </table>
+
+        <!-- Список команд -->
+        <div class="commands-list">
+            <h3>Команды для работы с образами</h3>
+            <ul>
+                <li><strong>Ubuntu 22.04:</strong> <code>sudo apt update && sudo apt upgrade</code></li>
+                <li><strong>Windows 10:</strong> <code>dism /online /cleanup-image /restorehealth</code></li>
+                <li><strong>Linux Mint:</strong> <code>sudo apt update && sudo apt full-upgrade</code></li>
+            </ul>
+        </div>
+    </div>
+
+    <script>
+        const correctLogin = "root";
+        const correctPassword = "root";
+
+        function checkCredentials(event) {
+            event.preventDefault(); // Предотвращаем отправку формы
+
+            // Получаем значения из полей ввода
+            const userLogin = document.getElementById("login").value;
+            const userPassword = document.getElementById("password").value;
+
+            // Проверяем логин и пароль
+            if (userLogin === correctLogin && userPassword === correctPassword) {
+                // Успешный вход
+                document.getElementById("result").textContent = "Добро пожаловать!";
+
+                // Очищаем поля ввода
+                document.getElementById("login").value = "";
+                document.getElementById("password").value = "";
+
+                // Скрываем форму
+                document.querySelector(".form-container").style.display = "none";
+
+                // Скрываем заголовок "Вход"
+                document.getElementById("title").style.display = "none";
+
+                // Показываем таблицу и список команд
+                document.getElementById("table-container").classList.remove("hidden");
+            } else if (userLogin !== correctLogin && userPassword !== correctPassword) {
+                document.getElementById("result").textContent = "Оба данных неверны. Попробуйте снова.";
+            } else if (userLogin !== correctLogin) {
+                document.getElementById("result").textContent = "Логин неверный. Попробуйте снова.";
+            } else {
+                document.getElementById("result").textContent = "Пароль неверный. Попробуйте снова.";
+            }
+        }
+    </script>
+</body>
+</html>
