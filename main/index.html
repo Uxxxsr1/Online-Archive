@@ -5,73 +5,189 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Вход, таблица и команды</title>
     <style>
+        /* Основные стили */
         body {
-            font-family: Arial, sans-serif;
-        }
-        .form-container {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #1E88E5, #42A5F5);
+            color: #fff;
+            margin: 0;
+            padding: 0;
             display: flex;
             flex-direction: column;
-            align-items: center; /* Выравнивание по центру по горизонтали */
-            gap: 10px; /* Расстояние между элементами */
+            align-items: center;
+            justify-content: center;
+            height: auto; /* Убираем фиксированную высоту */
+            overflow-y: auto; /* Добавляем прокрутку */
+            transition: background 0.5s ease; /* Плавный переход фона */
         }
+
+        h1, h2, h3 {
+            color: #fff;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+            transition: color 0.5s ease, text-shadow 0.5s ease; /* Плавные переходы */
+        }
+
+        /* Форма входа */
+        .form-container {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+            margin-bottom: 20px;
+            animation: fadeIn 1s ease-in-out;
+            width: 80%;
+            max-width: 400px;
+            transition: transform 0.5s ease, opacity 0.5s ease; /* Плавные переходы */
+        }
+
         .form-group {
             display: flex;
-            align-items: center; /* Выравнивание полей по вертикали */
-            gap: 10px; /* Расстояние между меткой и полем ввода */
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 15px;
+            transition: gap 0.5s ease; /* Плавные переходы */
         }
+
         .form-group label {
             font-weight: bold;
+            color: #fff;
+            transition: color 0.5s ease; /* Плавные переходы */
         }
+
         .form-group input {
-            padding: 8px;
+            padding: 10px;
             font-size: 16px;
             border: 1px solid #ccc;
             border-radius: 5px;
+            background: rgba(255, 255, 255, 0.8);
+            color: #333;
+            flex: 1;
+            transition: background 0.5s ease, color 0.5s ease; /* Плавные переходы */
         }
+
         button {
             padding: 10px 20px;
             font-size: 16px;
-            background-color: #4CAF50;
+            background-color: #FF5722;
             color: white;
             border: none;
             border-radius: 5px;
             cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.3s ease; /* Плавные переходы */
+            width: 100%;
         }
+
         button:hover {
-            background-color: #45a049;
+            background-color: #E64A19;
+            transform: scale(1.05); /* Увеличение кнопки при наведении */
         }
+
+        /* Таблица и команды */
+        .hidden {
+            display: none;
+        }
+
+        #table-container {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+            animation: slideIn 1s ease-in-out;
+            width: 80%;
+            max-width: 800px;
+            margin-top: 20px;
+            transition: transform 0.5s ease, opacity 0.5s ease; /* Плавные переходы */
+        }
+
         table {
             width: 100%;
             border-collapse: collapse;
             margin-top: 20px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 5px;
+            transition: background 0.5s ease; /* Плавные переходы */
         }
+
         th, td {
-            border: 1px solid #ddd;
-            padding: 8px;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            padding: 10px;
             text-align: left;
+            color: #fff;
+            transition: color 0.5s ease; /* Плавные переходы */
         }
+
         th {
-            background-color: #f2f2f2;
+            background-color: rgba(0, 0, 0, 0.2);
+            transition: background-color 0.5s ease; /* Плавные переходы */
         }
-        .hidden {
-            display: none;
+
+        a {
+            color: #FFEB3B;
+            text-decoration: none;
+            transition: color 0.3s ease; /* Плавные переходы */
         }
+
+        a:hover {
+            color: #FFC107;
+        }
+
+        /* Список команд */
         .commands-list {
             margin-top: 20px;
-            padding: 10px;
-            border: 1px solid #ddd;
+            padding: 15px;
+            border: 1px solid rgba(255, 255, 255, 0.3);
             border-radius: 5px;
-            background-color: #f9f9f9;
+            background: rgba(0, 0, 0, 0.2);
+            max-height: 300px; /* Добавляем ограничение высоты */
+            overflow-y: auto; /* Добавляем прокрутку */
+            transition: background 0.5s ease; /* Плавные переходы */
         }
+
         .commands-list h3 {
             margin-bottom: 10px;
+            color: #fff;
+            transition: color 0.5s ease; /* Плавные переходы */
         }
+
         .commands-list ul {
             list-style-type: none;
             padding: 0;
         }
+
         .commands-list li {
-            margin-bottom: 5px;
+            margin-bottom: 10px;
+            color: #fff;
+            transition: color 0.5s ease; /* Плавные переходы */
+        }
+
+        .commands-list code {
+            background: rgba(0, 0, 0, 0.5);
+            padding: 5px 10px;
+            border-radius: 5px;
+            color: #FFEB3B;
+            font-family: 'Courier New', Courier, monospace;
+            transition: background 0.5s ease, color 0.5s ease; /* Плавные переходы */
+        }
+
+        /* Анимации */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        @keyframes slideIn {
+            from {
+                transform: translateY(20px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
         }
     </style>
 </head>
@@ -106,17 +222,17 @@
                 <tr>
                     <td>Ubuntu 22.04</td>
                     <td>2.5 GB</td>
-                    <td><a href="https://ubuntu.com/download/desktop" target="_blank">Скачать</a></td>
+                    <td><a href="https://releases.ubuntu.com/22.04/ubuntu-22.04-desktop-amd64.iso" target="_blank">Скачать</a></td>
                 </tr>
                 <tr>
                     <td>Windows 10</td>
                     <td>4.7 GB</td>
-                    <td><a href="https://softcomputers.org/download/distr-windows/download-windows-10/" target="_blank">Скачать</a></td>
+                    <td><a href="https://www.microsoft.com/software-download/windows10" target="_blank">Скачать</a></td>
                 </tr>
                 <tr>
                     <td>Linux Mint</td>
                     <td>3.2 GB</td>
-                    <td><a href="https://linuxmint.com/edition.php?id=317" target="_blank">Скачать</a></td>
+                    <td><a href="https://linuxmint.com/download.php" target="_blank">Скачать</a></td>
                 </tr>
             </tbody>
         </table>
@@ -125,9 +241,51 @@
         <div class="commands-list">
             <h3>Команды для работы с образами</h3>
             <ul>
-                <li><strong>Ubuntu 22.04:</strong> <code>sudo apt update && sudo apt upgrade</code></li>
-                <li><strong>Windows 10:</strong> <code>dism /online /cleanup-image /restorehealth</code></li>
-                <li><strong>Linux Mint:</strong> <code>sudo apt update && sudo apt full-upgrade</code></li>
+                <li><strong>Ubuntu 22.04:</strong>
+                    <ul>
+                        <li><code>sudo apt update</code> - Обновление списка пакетов.</li>
+                        <li><code>sudo apt upgrade</code> - Обновление установленных пакетов.</li>
+                        <li><code>sudo apt install [package]</code> - Установка пакета.</li>
+                        <li><code>sudo apt remove [package]</code> - Удаление пакета.</li>
+                        <li><code>sudo apt autoremove</code> - Удаление ненужных пакетов.</li>
+                        <li><code>sudo apt search [package]</code> - Поиск пакета.</li>
+                        <li><code>sudo systemctl start [service]</code> - Запуск сервиса.</li>
+                        <li><code>sudo systemctl stop [service]</code> - Остановка сервиса.</li>
+                        <li><code>sudo systemctl enable [service]</code> - Включение сервиса при загрузке.</li>
+                        <li><code>sudo systemctl disable [service]</code> - Отключение сервиса при загрузке.</li>
+                    </ul>
+                </li>
+                <li><strong>Windows 10:</strong>
+                    <ul>
+                        <li><code>sfc /scannow</code> - Проверка и восстановление системных файлов.</li>
+                        <li><code>dism /online /cleanup-image /restorehealth</code> - Восстановление образа системы.</li>
+                        <li><code>chkdsk /f</code> - Проверка диска на ошибки.</li>
+                        <li><code>ipconfig /release</code> - Освобождение IP-адреса.</li>
+                        <li><code>ipconfig /renew</code> - Обновление IP-адреса.</li>
+                        <li><code>netsh wlan show profiles</code> - Показать сохраненные Wi-Fi сети.</li>
+                        <li><code>netsh wlan show profile name="Имя_сети" key=clear</code> - Показать пароль от Wi-Fi сети.</li>
+                        <li><code>tasklist</code> - Показать список запущенных процессов.</li>
+                        <li><code>taskkill /PID [PID] /F</code> - Завершить процесс по PID.</li>
+                        <li><code>shutdown /s /t 0</code> - Выключение компьютера.</li>
+                        <li><code>shutdown /r /t 0</code> - Перезагрузка компьютера.</li>
+                    </ul>
+                </li>
+                <li><strong>Linux Mint:</strong>
+                    <ul>
+                        <li><code>sudo apt update</code> - Обновление списка пакетов.</li>
+                        <li><code>sudo apt full-upgrade</code> - Полное обновление системы.</li>
+                        <li><code>sudo apt autoremove</code> - Удаление ненужных пакетов.</li>
+                        <li><code>sudo apt search [package]</code> - Поиск пакета.</li>
+                        <li><code>sudo systemctl start [service]</code> - Запуск сервиса.</li>
+                        <li><code>sudo systemctl stop [service]</code> - Остановка сервиса.</li>
+                        <li><code>sudo systemctl enable [service]</code> - Включение сервиса при загрузке.</li>
+                        <li><code>sudo systemctl disable [service]</code> - Отключение сервиса при загрузке.</li>
+                        <li><code>top</code> - Показать запущенные процессы.</li>
+                        <li><code>htop</code> - Улучшенный интерфейс для просмотра процессов.</li>
+                        <li><code>df -h</code> - Показать использование дискового пространства.</li>
+                        <li><code>free -h</code> - Показать использование памяти.</li>
+                    </ul>
+                </li>
             </ul>
         </div>
     </div>
